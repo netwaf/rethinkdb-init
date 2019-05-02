@@ -3,6 +3,9 @@
 require('should')
 var _ = require('lodash')
 
+// do not check for prototype when comparing Arrays
+should.config.checkProtoEql = false;
+
 module.exports = function (r, connectionOpts) {
   var init = require('../')(r)
 
@@ -282,7 +285,7 @@ module.exports = function (r, connectionOpts) {
                   .map(r.row('doc'))
                   .run(conn)
                   .then(function (result) {
-                    var names = _.pluck(result, 'name')
+                    var names = _.map(result, 'name')
                     names.should.eql(['carlos', 'jorge', 'peter', 'john', 'matt'])
                     done()
                   })
@@ -322,7 +325,7 @@ module.exports = function (r, connectionOpts) {
                   .coerceTo('array')
                   .run(conn)
                   .then(function (result) {
-                    var names = _.pluck(result, 'name')
+                    var names = _.map(result, 'name')
                     names.sort().should.eql(['jorge', 'carlos'].sort())
                   })
               })
@@ -332,7 +335,7 @@ module.exports = function (r, connectionOpts) {
                   .coerceTo('array')
                   .run(conn)
                   .then(function (result) {
-                    var names = _.pluck(result, 'name')
+                    var names = _.map(result, 'name')
                     names.sort().should.eql(['peter', 'john', 'matt'].sort())
                     done()
                   })
@@ -376,7 +379,7 @@ module.exports = function (r, connectionOpts) {
                   .coerceTo('array')
                   .run(conn)
                   .then(function (result) {
-                    var names = _.pluck(result, 'name')
+                    var names = _.map(result, 'name')
                     names.should.eql(['three', 'two', 'one'])
                     done()
                   })
