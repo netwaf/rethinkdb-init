@@ -3,6 +3,9 @@
 require('should')
 var _ = require('lodash')
 
+// do not check for prototype when comparing Arrays
+should.config.checkProtoEql = true;
+
 module.exports = function (r, connectionOpts) {
   var init = require('../')(r)
 
