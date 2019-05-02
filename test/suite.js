@@ -4,11 +4,7 @@ require('should')
 var _ = require('lodash')
 
 // do not check for prototype when comparing Arrays
-<<<<<<< HEAD
 should.config.checkProtoEql = false;
-=======
-should.config.checkProtoEql = true;
->>>>>>> 34474d0bd984406f1a60177f93b918e92ab56010
 
 module.exports = function (r, connectionOpts) {
   var init = require('../')(r)
@@ -391,6 +387,15 @@ module.exports = function (r, connectionOpts) {
               .catch(done)
           })
       })
+
+      it('should close rethinkdb connection', function (done) {
+        // help welcome: r.close error (is not a function)
+        // but rethinkdbdash is initialized with pool:false ...
+        // r.close();
+        process.exit();
+        done();
+      })
+
     })
   })
 }
